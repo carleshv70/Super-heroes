@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -58,5 +59,21 @@ public class HerosController {
 		}
 		return response;
 	}
+	
+	@GetMapping("/heroes/search")
+	@ResponseStatus(value = HttpStatus.OK)
+	public Map<String, Object> getHeroesByName(@RequestParam(name = "name") String criteria) {
+		
+		Map<String, Object> response = new HashMap<>();
+		
+		List<HeroDto> heroes = this.service.getHeroesByName(criteria)	
+				.stream().map(e-> this.mapper.mapEntityToDto(e))
+				.collect(Collectors.toList());
+		
+		response.put("heroes:", heroes);
+		return response;
+	}
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package org.chuix.superheros.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.chuix.superheros.model.entities.Hero;
 import org.chuix.superheros.repositories.HeroesRepository;
@@ -20,7 +21,15 @@ public class HeroesServiceImpl implements HeroesService {
 
 	@Override
 	public Hero getHeroById(Long id) {
-		return this.repository.findById(id).orElse(null);
+		
+		Optional<Hero> optHero = this.repository.findById(id);
+		
+		return optHero.isPresent()? optHero.get() : null;
+	}
+
+	@Override
+	public List<Hero> getHeroesByName(String name) {
+		return this.repository.findAllByNameContainingOrderByName(name);
 	}
 
 }
