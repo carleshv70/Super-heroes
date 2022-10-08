@@ -9,8 +9,9 @@ public interface HeroesService {
 	
 	List<Hero> getHeroes();
 	List<Hero> getHeroesByName( String criteria);
-	Hero getHeroById( Long id);
+	Hero getHeroById( Integer id);
 	Hero addHero( HeroDto newHeroDto);
 	Hero updateHero(Integer id, HeroDto heroDto);
+	Hero deleteHero(Integer id);
 
 }
