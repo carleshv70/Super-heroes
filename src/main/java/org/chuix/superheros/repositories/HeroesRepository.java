@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.chuix.superheros.model.entities.Hero;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface HeroesRepository extends JpaRepository<Hero, Long> {
+public interface HeroesRepository extends JpaRepository<Hero, Integer> {
 	
 	List<Hero> findAll();
 	Optional<Hero> findById(Long id);

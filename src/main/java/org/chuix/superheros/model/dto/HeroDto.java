@@ -2,7 +2,7 @@ package org.chuix.superheros.model.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -10,6 +10,8 @@ import lombok.Data;
 public class HeroDto implements Serializable {
 	
 	private Integer id;
+	
+	@NotNull(message = "The name field has to be informed")
 	private String name;
 	private String power;
 	private OwnerEnum owner;

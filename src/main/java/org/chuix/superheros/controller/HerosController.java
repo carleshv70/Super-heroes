@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,21 @@ public class HerosController {
 
 	@Autowired
 	HeroMapper mapper;
+	
+	@PutMapping("/heroes/{id}")
+	public Map<String, Object> updateHero(@PathVariable Integer id, @RequestBody @Valid HeroDto heroDto) {
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+
+			HeroDto newHero = this.mapper.mapEntityToDto(this.service.updateHero(id, heroDto));
+			response.put("hero", newHero);
+		} catch (Exception ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The hero has not been save correctly");
+		}
+		response.put("result", "the new record has been created");
+		return response;
+	}
 
 	@PostMapping("/heroes/")
 	public Map<String, Object> addHero(@RequestBody @Valid HeroDto heroDto) {
@@ -39,7 +55,7 @@ public class HerosController {
 
 		try {
 
-			HeroDto newHero = this.mapper.mapEntityToDto(this.service.addHero(this.mapper.mapDtoToEntity(heroDto)));
+			HeroDto newHero = this.mapper.mapEntityToDto(this.service.addHero(heroDto));
 			response.put("hero", newHero);
 		} catch (Exception ex) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The hero has not been save correctly");
