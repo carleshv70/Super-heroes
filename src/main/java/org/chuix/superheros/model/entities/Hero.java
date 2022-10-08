@@ -10,26 +10,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Where;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table( name = "HEROES")
 @Where(clause = "delete_at is null ")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Hero implements Serializable  {
 	
 	private static final long serialVersionUID = 1287737847037002170L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	
-	@Column(name= "NAME", unique = true)
+	@Column(unique = true)
+	@NotNull(message =  "This field is required and it cannot be null")
 	private String name;
-	private String power;
+	
+	private String power; 
+	
 	private String owner;
 
 	@Column(name = "create_at")

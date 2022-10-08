@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class HeroDto implements Serializable {
 	
-	private Long id;
+	private Integer id;
 	private String name;
 	private String power;
 	private OwnerEnum owner;

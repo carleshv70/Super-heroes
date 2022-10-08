@@ -32,4 +32,14 @@ public class HeroesServiceImpl implements HeroesService {
 		return this.repository.findAllByNameContainingOrderByName(name);
 	}
 
+	@Override
+	public Hero addHero(Hero newHero) {
+		
+		if (newHero.getId() != null ) {
+			throw new IllegalArgumentException("The id field cannot be informed ");
+		}
+		
+		return this.repository.save(newHero);
+	}
+
 }
